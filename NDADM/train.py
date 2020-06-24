@@ -4,7 +4,6 @@ from dataset import TRAIN_DATASET, TEST_DATASET
 
 LEARNING_RATE = 0.01
 
-
 X_train = tf.compat.v1.placeholder(tf.float32, [None, 36608])
 X_img = tf.reshape(X_train, [-1, 176, 208, 1])
 
@@ -36,3 +35,7 @@ L5a = tf.nn.relu(L5)
 L5m = tf.nn.max_pool2d(L5a, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding="SAME")
 
 L_F = tf.reshape(L5m, [-1, 6*7*32])
+
+W6 = tf.compat.v1.get_variable("W6", shape=[6*7*32, 4], initializer=tf.contrib.layers.xavier_initializer())
+b = tf.Variable(tf.random.normal([4]))
+hypothesis = tf.matmul(L_F, W6) + b
