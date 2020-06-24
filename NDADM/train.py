@@ -1,8 +1,5 @@
 import tensorflow as tf
 import numpy as np
-from dataset import TRAIN_DATASET, TEST_DATASET
-
-LEARNING_RATE = 0.01
 
 X_train = tf.compat.v1.placeholder(tf.float32, [None, 36608])
 X_img = tf.reshape(X_train, [-1, 176, 208, 1])
@@ -38,4 +35,9 @@ L_F = tf.reshape(L5m, [-1, 6*7*32])
 
 W6 = tf.compat.v1.get_variable("W6", shape=[6*7*32, 4], initializer=tf.contrib.layers.xavier_initializer())
 b = tf.Variable(tf.random.normal([4]))
-hypothesis = tf.matmul(L_F, W6) + b
+logits = tf.matmul(L_F, W6) + b
+
+LEARNING_RATE = 0.01
+
+COST = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits_v2(logits=logits, labels=Y_train))
+OPTIMIZER = tf.compat.v1.train.AdamOptimizer(learning_rate=LEARNING_RATE).minimize(COST)
