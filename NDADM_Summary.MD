@@ -35,10 +35,10 @@
   12. Max pool
   13. Convolve with 32 filters
   14. Max pool
-  15. Flatten with Fully connected layer of 1024nodes
+  15. Flatten with Fully connected layer of 1344nodes
   16. Set dropout rate to 0.8
   17. Set activation to SoftMax
-  18. Output with final layer of 2 nodes
+  18. Output with final layer of 4 nodes
   19. Set optimizer to Adam
   20. Regress
 
